@@ -35,3 +35,16 @@ export async function createActivity(token, activity) {
     throw Error(result.message);
   }
 }
+
+export async function deleteActivity(token, id, creatorId) {
+  if (!token) {
+    throw Error("You must be the creator of an activity to delete it.");
+  }
+
+  const response = await fetch(API + "/activities/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token + creatorId,
+    },
+  });
+}
